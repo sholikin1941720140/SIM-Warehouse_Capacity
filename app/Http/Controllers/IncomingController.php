@@ -17,7 +17,9 @@ class IncomingController extends Controller
 {
     public function index()
     {
-        $data = Incoming::with('incoming_items')->get();
+        $data = Incoming::with('incoming_items')
+                ->orderBy('created_at', 'desc')
+                ->get();
         $kapasitas = DB::table('incoming_capacities')->first();
         return view('kedatangan-material.index', compact('data', 'kapasitas'));
     }
