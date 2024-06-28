@@ -15,7 +15,6 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
-    <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <!-- Custom styles for this template-->
     <link href="{{asset('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
@@ -30,9 +29,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -71,7 +76,7 @@
 
         <!-- Nav Item - Kedatangan -->
         <li class="nav-item">
-            <a class="nav-link" href="kedatanganmaterial">
+            <a class="nav-link" href="/kedatanganmaterial">
                 <i class="fas fa-fw fa-truck"></i>
                 <span>Kedatangan Material</span>
             </a>
@@ -314,5 +319,26 @@
         })
         </script>
     </body>
-
+    @include('sweetalert::alert')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $('.ondelete').click(function(e) {
+            e.preventDefault();
+            const deleteUrl = $(this).attr('href');
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Data Anda Tidak Dapat di Kembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#adb5bd',
+                confirmButtonText: 'Hapus',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = deleteUrl;
+                }
+            });
+        });
+    </script>
 </html>

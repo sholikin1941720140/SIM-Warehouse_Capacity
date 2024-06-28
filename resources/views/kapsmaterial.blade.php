@@ -35,7 +35,7 @@
         </div>
 
         <div class="col-sm-12">
-          <table class="table table-bordered border-primary">
+          <table class="table table-bordered border-primary" id="table-material">
             <thead>
               <tr>
                 <th scope="col" style="text-align: center;">Item Number</th>
@@ -55,24 +55,24 @@
             <tbody>
               @foreach($dataMaterials as $dataMaterial)
                 <tr>
-                    <td>{{ $dataMaterial ->itemNumber }}</td>
-                    <td>{{ $dataMaterial ->partNumber }}</td>
-                    <td>{{ $dataMaterial ->productName }}</td>
-                    <td>{{ $dataMaterial ->pjg }}</td>
-                    <td>{{ $dataMaterial ->lbr }}</td>
-                    <td>{{ $dataMaterial ->jr }}</td>
-                    <td>{{ $dataMaterial ->tng }}</td>
-                    <td>{{ $dataMaterial ->vol }}</td>
-                    <td>{{ $dataMaterial ->qtyPack }}</td>
-                    <td>{{ $dataMaterial ->qtyBox }}</td>
-                    <td>{{ $dataMaterial ->updated_time }}</td>
+                    <td>{{ $dataMaterial->item_number }}</td>
+                    <td>{{ $dataMaterial->part_number }}</td>
+                    <td>{{ $dataMaterial->product_name }}</td>
+                    <td>{{ $dataMaterial->panjang }}</td>
+                    <td>{{ $dataMaterial->lebar }}</td>
+                    <td>{{ $dataMaterial->jr }}</td>
+                    <td>{{ $dataMaterial->tinggi }}</td>
+                    <td>{{ $dataMaterial->volume }}</td>
+                    <td>{{ $dataMaterial->qty_pack }}</td>
+                    <td>{{ $dataMaterial->qty_box }}</td>
+                    <td>{{ $dataMaterial->updated_at }}</td>
                     <td>
                       <div class="btn-group float-center mr-2">
                         <!-- Tombol Edit dengan ikon -->
-                        <a href="{{ route('kapsmaterial.edit', $dataMaterial->itemNumber) }}" class="btn btn-warning btn-sm">
+                        <a href="{{ route('kapsmaterial.edit', $dataMaterial->item_number) }}" class="btn btn-warning btn-sm">
                             <i class="fas fa-edit fa-xs"></i>
                         </a>
-                        <form action="{{ route('kapsmaterial.destroy', $dataMaterial->itemNumber) }}" method="POST">
+                        <form action="{{ route('kapsmaterial.destroy', $dataMaterial->item_number) }}" method="POST">
                           @csrf
                           @method('DELETE')
 
@@ -94,3 +94,13 @@
     </div>
   </div>
 @endsection
+
+<script>
+  $(document).ready(function() {
+    $('#table-material').DataTable();
+  });
+</script>
+
+<script>
+  
+</script>

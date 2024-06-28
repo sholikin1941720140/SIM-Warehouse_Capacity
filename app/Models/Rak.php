@@ -5,18 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataRak extends Model
+class Rak extends Model
 {
-    protected $table = 'dataRak';
-    protected $primaryKey = 'alamat';
+    use HasFactory;
+
+    protected $table = 'raks';
+
     protected $fillable = [
         'kode',
         'alamat',
         'panjang',
         'lebar',
         'tinggi',
-        'tinggiATS',
+        'tinggiAts',
         'tinggiTtl',
-        'volume'
+        'volume',
     ];
 }

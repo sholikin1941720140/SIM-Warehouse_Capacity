@@ -12,7 +12,7 @@ class KapsrakController extends Controller
 {
     public function index()
     {
-        $dataRaks = DB::Select("Select * from dataRak");
+        $dataRaks = DB::Select("Select * from raks");
         return view('kapsrak', ['dataRaks' => $dataRaks]);
         return view('kapsrak.index', ['data' => $data]);
         $dataRak = DataRak::selectRaw('*, GETDATE() as updated_at')->find($id);

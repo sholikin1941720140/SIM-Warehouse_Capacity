@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataMaterial;
+use App\Models\Material;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
@@ -14,7 +14,8 @@ class KapsmaterialController extends Controller
 {
     public function index(Request $request)
     {
-        $dataMaterials = DB::Select("Select * from datamaterial");
+        $dataMaterials = DB::Select("Select * from materials");
+        // dd($dataMaterials);
         // $currentPage = request()->get('page', 1); // Get the current page from the request
         // $perPage = 20;
         // $offset = ($currentPage - 1) * $perPage;
@@ -24,13 +25,13 @@ class KapsmaterialController extends Controller
         //     'query' => request()->query(),
         // ]);
 
-        $itemNumber = $request->get('itemNumber');  
+        $itemNumber = $request->get('item_number');  
         if($itemNumber){
-            $dataMaterials = DataMaterial::where("itemNumber","LIKE","%$itemNumber%")->get();
+            $dataMaterials = Material::where("item_number","LIKE","%$itemNumber%")->get();
         }
         $productName = $request->get('productName');  
         if($productName){
-            $dataMaterials = DataMaterial::where("productName","LIKE","%$productName%")->get();
+            $dataMaterials = Material::where("product_name","LIKE","%$productName%")->get();
         }
         
        return view('kapsmaterial', ['dataMaterials' => $dataMaterials]);
