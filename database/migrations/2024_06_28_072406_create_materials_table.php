@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
+            $table->string('rak');
             $table->string('item_number');
             $table->string('part_number');
             $table->string('product_name');

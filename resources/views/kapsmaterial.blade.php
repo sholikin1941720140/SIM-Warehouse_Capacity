@@ -1,106 +1,104 @@
 @extends('template')
 
+@section('custom-css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+@endsection
+
 @section('content')
-  <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Manajemen Kapasitas Material</h6>
-    </div>
-    <div class="card-body">
-      <div class="table-wrapper table-responsive">
-        <hr>
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12 col-md-6"></div>
-
-            <div class="col-sm-12 col-md-6">
-              <div id="dataTable_filter" class="dataTables_filter"></div>         
-            </div>
-
-            <form action="/kapsmaterial" class="col-sm" method="get">
-                <label class="form-label">Item Number</label>
-                  <input name="itemNumber" type="search" class="form-control" id="txtsearchitem" autocomplete="off" placeholder="Cari Item Number">
-            </form>
-            
-            <form action="/kapsmaterial" class="col-sm" method="get">
-              <label class="form-label">Product</label>
-                <input name="productName" type="search" class="form-control" id="txtsearchname" autocomplete="off" placeholder="Cari Product">
-            </form> 
-             
-          </div>
-        </div>
-        <hr>
-        
-        <div class="col-sm-6" style="margin: 10px 0;">
-          <a href="{{ route('kapsmaterial.create') }}" class="btn btn-success"> + Add New Material</a>
-        </div>
-
-        <div class="col-sm-12">
-          <table class="table table-bordered border-primary" id="table-material">
-            <thead>
-              <tr>
-                <th scope="col" style="text-align: center;">Item Number</th>
-                <th scope="col" style="text-align: center;">Part Number</th>
-                <th scope="col" style="text-align: center;">Product</th>
-                <th scope="col" style="text-align: center;">Panjang (cm)</th>
-                <th scope="col" style="text-align: center;">Lebar (cm)</th>
-                <th scope="col" style="text-align: center;">Diameter (cm)</th>
-                <th scope="col" style="text-align: center;">Tinggi (cm)</th>
-                <th scope="col" style="text-align: center;">Volume (cm3)</th>
-                <th scope="col" style="text-align: center;">Quantity Pack</th>
-                <th scope="col" style="text-align: center;">Quantity Box</th>
-                <th scope="col" style="text-align: center;">Date&Time</th>
-                <th scope="col" style="text-align: center;">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($dataMaterials as $dataMaterial)
-                <tr>
-                    <td>{{ $dataMaterial->item_number }}</td>
-                    <td>{{ $dataMaterial->part_number }}</td>
-                    <td>{{ $dataMaterial->product_name }}</td>
-                    <td>{{ $dataMaterial->panjang }}</td>
-                    <td>{{ $dataMaterial->lebar }}</td>
-                    <td>{{ $dataMaterial->jr }}</td>
-                    <td>{{ $dataMaterial->tinggi }}</td>
-                    <td>{{ $dataMaterial->volume }}</td>
-                    <td>{{ $dataMaterial->qty_pack }}</td>
-                    <td>{{ $dataMaterial->qty_box }}</td>
-                    <td>{{ $dataMaterial->updated_at }}</td>
-                    <td>
-                      <div class="btn-group float-center mr-2">
-                        <!-- Tombol Edit dengan ikon -->
-                        <a href="{{ route('kapsmaterial.edit', $dataMaterial->item_number) }}" class="btn btn-warning btn-sm">
-                            <i class="fas fa-edit fa-xs"></i>
-                        </a>
-                        <form action="{{ route('kapsmaterial.destroy', $dataMaterial->item_number) }}" method="POST">
-                          @csrf
-                          @method('DELETE')
-
-                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                              <i class="fas fa-trash-alt fa-xs"></i>
-                          </button>
-                        </form>
-                      </div>
-                    </td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-        
-    </div>
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Manajemen Kapasitas Material</h6>
   </div>
+  <div class="card-body">
+    <div class="table-wrapper table-responsive">
+      <div class="row mb-2 d-flex justify-content-end mr-auto mt-2">
+        <div class="ml-auto">
+          <a href="{{ route('kapsmaterial.create') }}" class="btn btn-success">
+            <i class="fas fa-plus"></i>
+            Tambah Data
+          </a>
+        </div>
+      </div>
+      <hr>
+      <div class="col-sm-12">
+        <table class="table table-bordered border-primary" id="example2">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Product</th>
+              <th>Detail</th>
+              <th>Volume (cm3)</th>
+              <th>Quantity</th>
+              <th>Tanggal</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($data as $key => $value)
+              <tr>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>
+                    <b>Nama : </b>{{ $value->product_name }}
+                    <br>
+                    <b>Item Number : </b> {{ $value->item_number }}
+                    <br>
+                    <b>Part Number : </b> {{ $value->part_number }}
+                  </td>
+                  <td>
+                    <b>Rak : </b> {{ $value->rak }}
+                    <br>
+                    <b>Panjang : </b>{{ $value->panjang }}
+                    <br>
+                    <b>Lebar : </b>{{ $value->lebar }}
+                    <br>
+                    <b>JR : </b>{{ $value->jr }}
+                    <br>
+                    <b>Tinggi : </b>{{ $value->tinggi }}
+                  </td>
+                  <td>{{ $value->volume }}</td>
+                  <td>
+                    <b>Pack : </b>{{ $value->qty_pack }}
+                    <br>
+                    <b>Box : </b>{{ $value->qty_box }}
+                  </td>
+                  <td>{{ \Carbon\Carbon::make($value->updated_at)->isoFormat('DD MMMM YYYY') }}</td>
+                  <td>
+                    <div class="btn-group float-center mr-2">
+                      <a href="{{ route('kapsmaterial.edit', $value->item_number) }}" class="btn btn-warning btn-sm">
+                          <i class="fas fa-edit fa-xs"></i>
+                      </a>
+                      &nbsp;
+                      <form action="{{ route('kapsmaterial.destroy', $value->item_number) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-danger btn-sm ondelete">
+                            <i class="fas fa-trash-alt fa-xs"></i>
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+</div>
 @endsection
 
-<script>
-  $(document).ready(function() {
-    $('#table-material').DataTable();
-  });
-</script>
-
-<script>
-  
-</script>
+@section('custom-js')
+    <script>
+        $(document).ready(function() {
+            $('#example2').DataTable();
+        });
+    </script>
+@endsection

@@ -36,6 +36,7 @@ Route::get('/kedatanganmaterial', [IncomingController::class, 'index']);
 Route::get('/kedatanganmaterial/show/{id}', [IncomingController::class, 'show']);
 Route::get('/kedatanganmaterial/delete/{id}', [IncomingController::class, 'delete']);
 Route::post('/kedatanganmaterial/import_excel', [IncomingController::class, 'importExcel']);
+Route::get('/calendar-data', [IncomingController::class, 'getIncomingData']);
 
 Route::get('/tambah-rak-form', [KapsrakController::class, 'create'])->name('kapsrak.create');
 Route::get('/kapsrak/newrak', [KapsrakController::class, 'create'])->name('kapsrak.newrak');

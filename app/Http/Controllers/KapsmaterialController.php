@@ -14,27 +14,9 @@ class KapsmaterialController extends Controller
 {
     public function index(Request $request)
     {
-        $dataMaterials = DB::Select("Select * from materials");
-        // dd($dataMaterials);
-        // $currentPage = request()->get('page', 1); // Get the current page from the request
-        // $perPage = 20;
-        // $offset = ($currentPage - 1) * $perPage;
-        // $items = array_slice($dataMaterials, $offset, $perPage);
-        // $dataMaterials = new LengthAwarePaginator($items, count($dataMaterials), $perPage, $currentPage, [
-        //     'path' => request()->url(),
-        //     'query' => request()->query(),
-        // ]);
-
-        $itemNumber = $request->get('item_number');  
-        if($itemNumber){
-            $dataMaterials = Material::where("item_number","LIKE","%$itemNumber%")->get();
-        }
-        $productName = $request->get('productName');  
-        if($productName){
-            $dataMaterials = Material::where("product_name","LIKE","%$productName%")->get();
-        }
+        $data = DB::table('materials')->get();
         
-       return view('kapsmaterial', ['dataMaterials' => $dataMaterials]);
+       return view('kapsmaterial', compact('data'));
     
     }
 

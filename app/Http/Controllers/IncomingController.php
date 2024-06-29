@@ -89,4 +89,22 @@ class IncomingController extends Controller
             ]);
         }
     }
+
+    public function getIncomingData()
+    {
+        $data = DB::table('incomings')
+            ->select(DB::raw('tanggal, SUM(luasan_kedatangan) as total_luasan'))
+            ->groupBy('tanggal')
+            ->get();
+        // return response()->json($data);
+        $events = $data->map(function($item) {
+            return [
+                'title' => $item->total_luasan,
+                'start' => $item->tanggal,
+                'allDay' => true
+            ];
+        });
+
+        return response()->json($events);
+    }
 }
