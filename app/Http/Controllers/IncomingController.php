@@ -65,9 +65,8 @@ class IncomingController extends Controller
             return redirect('/kedatanganmaterial')->withErrors($validated);
         }
 
-        $now = Carbon::now()->format('Y-m-d');
         $file = $request->file('file');
-        $nama_file = $now.'_'.time().'_'.$file->getClientOriginalName();
+        $nama_file = time().'_'.$file->getClientOriginalName();
         $file->move('file_kedatangan', $nama_file);
 
         Excel::import(new IncomingImport($nama_file), public_path('/file_kedatangan/'.$nama_file));
