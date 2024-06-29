@@ -27,6 +27,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="rak">Rak</label>
+                            <input type="text" class="form-control" id="rak" name="rak" required>
+                        </div>
+
+                        <div class="form-group">
                             <label for="pjp">Panjang</label>
                             <input type="text" class="form-control" id="panjang" name="pjg" onchange="updateVolume()">
                         </div>

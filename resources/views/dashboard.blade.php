@@ -14,8 +14,12 @@
                 <div class="col-12">
                     <div class="card cardint">
                         <div class="card-body p-3">
-                            <h5 class="text-center text-primary"><strong>Data Total Incoming Material Setiap Hari</strong></h5>
-                            <div id="calendar"></div>
+                            <h5 class="">Warehouse Capacity</h5>
+                            <div class="mt-3">
+                                <div class="d-flex align-items-center justify-content-center" style="vertical-align: middle;">
+                                    <canvas id="warehouseCapacityChart" style="min-height: 330px; max-height:100%; height: auto;"></canvas>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -24,12 +28,8 @@
                 <div class="col-12">
                     <div class="card cardint">
                         <div class="card-body p-3">
-                            <h5 class="">Warehouse Capacity</h5>
-                            <div class="mt-3">
-                                <div class="d-flex align-items-center justify-content-center" style="vertical-align: middle;">
-                                    <canvas id="warehouseCapacityChart" style="min-height: 330px; max-height:100%; height: auto;"></canvas>
-                                </div>
-                            </div>
+                            <h5 class="text-center text-primary"><strong>Data Total Incoming Material</strong></h5>
+                            <div id="calendar"></div>
                         </div>
                     </div>
                 </div>

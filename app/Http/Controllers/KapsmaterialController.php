@@ -27,6 +27,7 @@ class KapsmaterialController extends Controller
 
     public function store(Request $request)
     {
+        // return response()->json($request->all());
         $itemNumber = $request->input('itemNumber');
         $partNumber = $request->input('partNumber');
         $productName = $request->input('productName');
@@ -34,7 +35,7 @@ class KapsmaterialController extends Controller
         $lbr = $request->input('lbr');
         $jr = $request->input('jr');
         $tng = $request->input('pjg');
-        $vol = $request->input('lbr');
+        $vol = $request->input('volume');
         $qtyPack = $request->input('qtyPack');
         $qtyBox = $request->input('qtyBox');
         $berat = $request->input('berat');

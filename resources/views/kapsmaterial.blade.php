@@ -34,8 +34,8 @@
               <th>No.</th>
               <th>Product</th>
               <th>Detail</th>
-              <th>Volume (cm3)</th>
-              <th>Quantity</th>
+              <th>Quantity</th> 
+              <th>Volume (cm3)/box</th>
               <th>Tanggal</th>
               <th>Actions</th>
             </tr>
@@ -61,13 +61,13 @@
                     <b>JR : </b>{{ $value->jr }}
                     <br>
                     <b>Tinggi : </b>{{ $value->tinggi }}
-                  </td>
-                  <td>{{ $value->volume }}</td>
+                  </td>                  
                   <td>
                     <b>Pack : </b>{{ $value->qty_pack }}
                     <br>
                     <b>Box : </b>{{ $value->qty_box }}
                   </td>
+                  <td>{{ $value->volume }}</td>
                   <td>{{ \Carbon\Carbon::make($value->updated_at)->isoFormat('DD MMMM YYYY') }}</td>
                   <td>
                     <div class="btn-group float-center mr-2">
