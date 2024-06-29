@@ -9,20 +9,25 @@ use DB;
 use App\Http\Requests;
 use App\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Validator;
 
 class KapsmaterialController extends Controller
 {
     public function index(Request $request)
     {
-        $data = DB::table('materials')->get();
-        
-       return view('kapsmaterial', compact('data'));
+        $data = DB::table('materials')->join('raks', 'materials.rak_id', '=', 'raks.id')
+                    ->select('materials.*', 'raks.alamat as rak_alamat')
+                    ->get();
+        // return response()->json($data);
+        return view('material.index', compact('data'));
     
     }
 
     public function create()
     {
-        return view('tambahmat');
+        $rak = DB::table('raks')->select('id', 'alamat')->get();
+        // return response()->json($rak);
+        return view('material.create', compact('rak'));
     }
 
     public function store(Request $request)
@@ -49,48 +54,46 @@ class KapsmaterialController extends Controller
 
     public function edit($id)
     {
-        $dataMaterial = datamaterial::find($id);
-        return view('editKapsmaterial', ['dataMaterial' => $dataMaterial]);
+        $data = Material::find($id);
+
+        return view('material.edit', compact('data'));
     }
 
-    public function update(Request $request, $qty)
+    public function update(Request $request)
     {
-        $dataMaterial = datamaterial::where('qtyPack', $qty)->first();
-
-        // Validasi request jika perlu
-        $request->validate([
+        $validatedData = Validator::make($request->all(), [
+            'volume' => 'required',
             'qtyPack' => 'required',
             'qtyBox' => 'required',
-            // ... tambahkan validasi lainnya sesuai kebutuhan
         ]);
 
-        // Update kolom qtyPack dan qtyBox
-        $dataMaterial->qtyPack = $request->input('qtyPack');
-        $dataMaterial->qtyBox = $request->input('qtyBox');
-        // ... tambahkan update untuk kolom lainnya jika perlu
+        $volume = $request->volume;
+        $pack = $request->qtyPack;
+        $box = $request->qtyBox;
 
-        // Simpan perubahan
-        $dataMaterial->save();
+        $total_volume = $volume * $box;
 
-        // Redirect atau melakukan tindakan lainnya
-        return redirect()->route('kapsmaterial.index')->with('success', 'Material berhasil diupdate.');
+        $material = Material::findOrFail($request->id);
+        $material->qty_pack = $pack;
+        $material->qty_box = $box;
+        $material->total_volume = $total_volume;
+        $material->save();
+
+        toast('Material berhasil diupdate.', 'success');
+        return redirect()->route('kapsmaterial.index');
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
-        // Temukan data berdasarkan ID
-        $dataMaterial = DataMaterial::find($id);
-
-        // Periksa apakah data ditemukan
-        if (!$dataMaterial) {
-            return redirect()->route('kapsmaterial.index')->with('error', 'Data tidak ditemukan');
+        $data = Material::find($id);
+        if (!$data) {
+            toast('Data tidak ditemukan.', 'error');
+            return redirect()->route('kapsmaterial.index');
         }
+        $data->delete();
 
-        // Lakukan penghapusan
-        $dataMaterial->delete();
-
-        // Redirect ke halaman indeks atau halaman lain yang sesuai
-        return redirect()->route('kapsmaterial.index')->with('success', 'Data berhasil dihapus');
+        toast('Data berhasil dihapus.', 'success');
+        return redirect()->route('kapsmaterial.index');
     }
 
 }

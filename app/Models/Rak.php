@@ -17,8 +17,13 @@ class Rak extends Model
         'panjang',
         'lebar',
         'tinggi',
-        'tinggiAts',
-        'tinggiTtl',
+        'tinggi_atas',
+        'tinggi_total',
         'volume',
     ];
+
+    public function materials()
+    {
+        return $this->hasMany(Material::class, 'rak_id', 'id');
+    }
 }

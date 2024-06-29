@@ -12,22 +12,19 @@ class KapsrakController extends Controller
 {
     public function index()
     {
-        $dataRaks = DB::Select("Select * from raks");
-        return view('kapsrak', ['dataRaks' => $dataRaks]);
-        return view('kapsrak.index', ['data' => $data]);
-        $dataRak = DataRak::selectRaw('*, GETDATE() as updated_at')->find($id);
-        //$dataRak->when($request->kode, function ($query) use($request) {
-            //return $query->wherekode($request->'kode');
-       // });
-        return view('kapsrak', ['kode' => $kode->paginate(10)]);
+        $data = DB::table('raks')->get();
+        // dd($data);
+        return view('rak.index', compact('data'));
     }
+
     public function create()
     {
-        return view('tambahrak');
+        return view('rak.create');
     }
 
     public function store(Request $request)
     {
+        return response()->json($request->all());
         $kode = $request->input('kode');
         $alamat = $request->input('alamat');
         $panjang = $request->input('panjang');
@@ -37,7 +34,7 @@ class KapsrakController extends Controller
         $tinggiTtl = $request->input('tinggiTtl');
         $volume = $request->input('volume');
 
-        DB::table('DataRak')->insert([
+        DB::table('raks')->insert([
             'kode' => $kode,
             'alamat' => $alamat,
             'panjang' => $panjang,
@@ -48,9 +45,11 @@ class KapsrakController extends Controller
             'volume' => $volume,
         ]);
         // Redirect atau kembalikan respons sesuai kebutuhan
-        return redirect()->route('kapsrak.index')->with('success', 'New rak added successfully'); 
+        toast('Data berhasil ditambahkan','success');
+        return redirect()->route('kapsrak.index'); 
         
     }
+
     public function edit($id)
     {
         // Mendapatkan data berdasarkan ID
@@ -58,7 +57,8 @@ class KapsrakController extends Controller
 
         // Menampilkan halaman edit dengan membawa data rak
         return view('kapsrak.edit', compact('rak'));
-    } 
+    }
+
     public function destroy($alamat)
     {
         // Temukan data berdasarkan alamat

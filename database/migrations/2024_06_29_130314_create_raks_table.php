@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('kode');
             $table->string('alamat');
-            $table->decimal('panjang', 20, 2);
-            $table->decimal('lebar', 20, 2);
-            $table->decimal('tinggi', 20, 2);
-            $table->decimal('tinggiAts', 20, 2);
-            $table->decimal('tinggiTtl', 20, 2);
-            $table->decimal('volume', 35, 2);
+            $table->bigInteger('panjang')->nullable();
+            $table->bigInteger('lebar')->nullable();
+            $table->bigInteger('tinggi')->nullable();
+            $table->bigInteger('tinggi_atas')->nullable();
+            $table->bigInteger('tinggi_total')->nullable();
+            $table->bigInteger('volume');
             $table->timestamps();
         });
     }

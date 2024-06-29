@@ -52,7 +52,7 @@
                     <b>Part Number : </b> {{ $value->part_number }}
                   </td>
                   <td>
-                    <b>Rak : </b> {{ $value->rak }}
+                    <b>Rak : </b> {{ $value->rak_alamat }}
                     <br>
                     <b>Panjang : </b>{{ $value->panjang }}
                     <br>
@@ -61,28 +61,27 @@
                     <b>JR : </b>{{ $value->jr }}
                     <br>
                     <b>Tinggi : </b>{{ $value->tinggi }}
-                  </td>                  
-                  <td>
-                    <b>Pack : </b>{{ $value->qty_pack }}
-                    <br>
-                    <b>Box : </b>{{ $value->qty_box }}
                   </td>
-                  <td>{{ $value->volume }}</td>
+                  <td>
+                    <b>Pack : </b>{{ number_format($value->qty_pack, 0, ",", ".") }}
+                    <br>
+                    <b>Box : </b>{{ number_format($value->qty_box, 0, ",", ".") }}
+                  </td>
+                  <td>
+                    <b>Total perbox : </b>{{ number_format($value->volume, 0, ",", ".") }}
+                    <br>
+                    <b>Total Volume : </b>{{ number_format($value->total_volume, 0, ",", ".") }}
+                  </td>
                   <td>{{ \Carbon\Carbon::make($value->updated_at)->isoFormat('DD MMMM YYYY') }}</td>
                   <td>
                     <div class="btn-group float-center mr-2">
-                      <a href="{{ route('kapsmaterial.edit', $value->item_number) }}" class="btn btn-warning btn-sm">
-                          <i class="fas fa-edit fa-xs"></i>
+                      <a href="{{ route('kapsmaterial.edit', $value->id) }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit fa-xs"></i>
                       </a>
                       &nbsp;
-                      <form action="{{ route('kapsmaterial.destroy', $value->item_number) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-
-                        <button type="submit" class="btn btn-danger btn-sm ondelete">
-                            <i class="fas fa-trash-alt fa-xs"></i>
-                        </button>
-                      </form>
+                      <a class="btn btn-danger btn-sm ondelete" href="{{ url('/kapsmaterial/delete/'.$value->id) }}">
+                        <i class="fas fa-trash"></i>
+                      </a>
                     </div>
                   </td>
               </tr>

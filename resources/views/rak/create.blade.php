@@ -6,7 +6,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header bg-primary text-white">Add New Rak</div>
-
                 <div class="card-body">
                     <form method="post" action="{{ route('kapsrak.store') }}">
                         @csrf
@@ -35,10 +34,9 @@
                             <input type="text" class="form-control" id="tinggi" name="tinggi" onchange="updateVolume()">
                         </div>
 
-
                         <div class="form-group">
                             <label for="tinggiAts">Tinggi Atas</label>
-                            <input type="text" class="form-control" id="tinggiAts" name="tinggiAts" onchange="updateTinggiTtl()"">
+                            <input type="text" class="form-control" id="tinggiAts" name="tinggiAts" onchange="updateTinggiTtl()">
                         </div>
 
                         <div class="form-group">
@@ -60,42 +58,43 @@
         </div>
     </div>
 </div>
+@endsection
 
-<!-- JavaScript script -->
-<script>
-    function updateVolume() {
-        var panjang = parseFloat(document.getElementById('panjang').value) || 0;
-        var lebar = parseFloat(document.getElementById('lebar').value) || 0;
-        var tinggiTtl = parseFloat(document.getElementById('tinggiTtl').value) || 0;
+@section('custom-js')
+    <script>
+        function updateVolume() {
+            var panjang = parseFloat(document.getElementById('panjang').value) || 0;
+            var lebar = parseFloat(document.getElementById('lebar').value) || 0;
+            var tinggiTtl = parseFloat(document.getElementById('tinggiTtl').value) || 0;
 
-        // Menghitung volume
-        var volume = panjang * lebar * tinggiTtl;
+            // Menghitung volume
+            var volume = panjang * lebar * tinggiTtl;
 
-        // Mengisi nilai volume ke input volume
-        document.getElementById('volume').value = volume;
-    }
-
-    function updateTinggiTtl() {
-        var tinggi = parseFloat(document.getElementById('tinggi').value) || 0;
-        var tinggiAts = parseFloat(document.getElementById('tinggiAts').value) || 0;
-
-        // Memastikan bahwa jika tinggiAts tidak diisi, nilainya adalah 0
-        if (isNaN(tinggiAts)) {
-            tinggiAts = 0;
+            // Mengisi nilai volume ke input volume
+            document.getElementById('volume').value = volume;
         }
 
-        // Menghitung tinggiTtl
-        var tinggiTtl = tinggi + tinggiAts;
+        function updateTinggiTtl() {
+            var tinggi = parseFloat(document.getElementById('tinggi').value) || 0;
+            var tinggiAts = parseFloat(document.getElementById('tinggiAts').value) || 0;
 
-        // Mengisi nilai tinggiTtl ke input tinggiTtl
-        document.getElementById('tinggiTtl').value = tinggiTtl;
+            // Memastikan bahwa jika tinggiAts tidak diisi, nilainya adalah 0
+            if (isNaN(tinggiAts)) {
+                tinggiAts = 0;
+            }
 
-        // Memanggil fungsi updateVolume setelah mengupdate tinggiTtl
-        updateVolume();
-    }
+            // Menghitung tinggiTtl
+            var tinggiTtl = tinggi + tinggiAts;
 
-    // Mengupdate nilai tinggiTtl saat tinggi atau tinggiAts berubah
-    document.getElementById('tinggi').addEventListener('input', updateTinggiTtl);
-    document.getElementById('tinggiAts').addEventListener('input', updateTinggiTtl);
-</script>
+            // Mengisi nilai tinggiTtl ke input tinggiTtl
+            document.getElementById('tinggiTtl').value = tinggiTtl;
+
+            // Memanggil fungsi updateVolume setelah mengupdate tinggiTtl
+            updateVolume();
+        }
+
+        // Mengupdate nilai tinggiTtl saat tinggi atau tinggiAts berubah
+        document.getElementById('tinggi').addEventListener('input', updateTinggiTtl);
+        document.getElementById('tinggiAts').addEventListener('input', updateTinggiTtl);
+    </script>
 @endsection

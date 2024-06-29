@@ -12,7 +12,7 @@ class Material extends Model
     protected $table = 'materials';
 
     protected $fillable = [
-        'rak',
+        'rak_id',
         'item_number',
         'part_number',
         'product_name',
@@ -20,9 +20,15 @@ class Material extends Model
         'lebar',
         'tinggi',
         'jr',
-        'volume',
         'qty_box',
         'qty_pack',
-        'qty_berat',
+        'berat',
+        'volume',
+        'total_volume',
     ];
+
+    public function rak()
+    {
+        return $this->belongsTo(Rak::class, 'rak_id', 'id');
+    }
 }

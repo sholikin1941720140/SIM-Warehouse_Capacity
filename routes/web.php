@@ -38,10 +38,12 @@ Route::get('/kedatanganmaterial/delete/{id}', [IncomingController::class, 'delet
 Route::post('/kedatanganmaterial/import_excel', [IncomingController::class, 'importExcel']);
 Route::get('/calendar-data', [IncomingController::class, 'getIncomingData']);
 
-Route::get('/tambah-rak-form', [KapsrakController::class, 'create'])->name('kapsrak.create');
-Route::get('/kapsrak/newrak', [KapsrakController::class, 'create'])->name('kapsrak.newrak');
-Route::post('/kapsrak/store', [KapsrakController::class, 'store'])->name('kapsrak.store');
-Route::delete('/kapsrak/destroy/{alamat}', [KapsrakController::class, 'destroy'])->name('kapsrak.destroy');
+Route::resource('/kapsrak', KapsrakController::class);
+
+// Route::get('/tambah-rak-form', [KapsrakController::class, 'create'])->name('kapsrak.create');
+// Route::get('/kapsrak/newrak', [KapsrakController::class, 'create'])->name('kapsrak.newrak');
+// Route::post('/kapsrak/store', [KapsrakController::class, 'store'])->name('kapsrak.store');
+// Route::delete('/kapsrak/destroy/{alamat}', [KapsrakController::class, 'destroy'])->name('kapsrak.destroy');
 // Route::get('/tambah-material-form', [KapsmaterialController::class, 'create'])->name('kapsmaterial.create');
 // Route::get('/kapsmaterial/newmaterial', [KapsmaterialController::class, 'create'])->name('kapsmaterial.newmaterial');
 // Route::post('/kapsmaterial/store', [KapsmaterialController::class, 'store'])->name('kapsmaterial.store');
@@ -50,7 +52,7 @@ Route::delete('/kapsrak/destroy/{alamat}', [KapsrakController::class, 'destroy']
 Route::get('/edit/{qty}', [KapsmaterialController::class, 'edit'])->name('kapsmaterial.edit');
 // Menyimpan perubahan setelah edit
 Route::put('/kapsmaterial/update/{qty}', [KapsmaterialController::class, 'update'])->name('kapsmaterial.update');
-// Route::delete('/kapsmaterial/{id}', 'KapsmaterialController@destroy')->name('kapsmaterial.destroy');
+Route::get('/kapsmaterial/delete/{id}', [KapsmaterialController::class, 'delete'])->name('kapsmaterial.delete');
 //Route::get('/kapsrak/index', [KapsrakController::class, 'index']);
 Route::get('/kapsrak/getdata', [KapsrakController::class, 'getdata'])->name("kapsrak.getdata");
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

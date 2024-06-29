@@ -19,7 +19,7 @@
     <div class="card-body">
         <div class="row mb-2 d-flex justify-content-end mr-auto mt-2">
             <div class="ml-auto">
-              <a href="{{ route('kapsmaterial.create') }}" class="btn btn-success">
+              <a href="{{ route('kapsrak.create') }}" class="btn btn-success">
                 <i class="fas fa-plus"></i>
                 Tambah Data
               </a>
@@ -42,39 +42,24 @@
                 </tr>
             </thead>
             <tbody>
-            {{-- @foreach($dataMaterials as $dataMaterial)
+            @foreach($data as $key => $value)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>
-                    <b>Nama : </b>{{ $dataMaterial->product_name }}
-                    <br>
-                    <b>Item Number : </b> {{ $dataMaterial->item_number }}
-                    <br>
-                    <b>Part Number : </b> {{ $dataMaterial->part_number }}
-                    </td>
-                    <td>
-                    <b>Panjang : </b>{{ $dataMaterial->panjang }}
-                    <br>
-                    <b>Lebar : </b>{{ $dataMaterial->lebar }}
-                    <br>
-                    <b>JR : </b>{{ $dataMaterial->jr }}
-                    <br>
-                    <b>Tinggi : </b>{{ $dataMaterial->tinggi }}
-                    </td>
-                    <td>{{ $dataMaterial->volume }}</td>
-                    <td>
-                    <b>Pack : </b>{{ $dataMaterial->qty_pack }}
-                    <br>
-                    <b>Box : </b>{{ $dataMaterial->qty_box }}
-                    </td>
-                    <td>{{ \Carbon\Carbon::make($dataMaterial->updated_at)->isoFormat('DD MMMM YYYY') }}</td>
+                    <td>{{ $key+1 }}</td>
+                    <td>{{ $value->kode }}</td>
+                    <td>{{ $value->alamat }}</td>
+                    <td>{{ $value->panjang }}</td>
+                    <td>{{ $value->lebar }}</td>
+                    <td>{{ $value->tinggi }}</td>
+                    <td>{{ $value->tinggi_atas }}</td>
+                    <td>{{ $value->tinggi_total }}</td>                    
+                    <td>{{ number_format($value->volume, 0, ",", ".") }}</td>
                     <td>
                     <div class="btn-group float-center mr-2">
-                        <a href="{{ route('kapsmaterial.edit', $dataMaterial->item_number) }}" class="btn btn-warning btn-sm">
+                        <a href="{{ route('kapsmaterial.edit', $value->alamat) }}" class="btn btn-warning btn-sm">
                             <i class="fas fa-edit fa-xs"></i>
                         </a>
                         &nbsp;
-                        <form action="{{ route('kapsmaterial.destroy', $dataMaterial->item_number) }}" method="POST">
+                        <form action="{{ route('kapsmaterial.destroy', $value->alamat) }}" method="POST">
                         @csrf
                         @method('DELETE')
 
@@ -85,7 +70,7 @@
                     </div>
                     </td>
                 </tr>
-            @endforeach --}}
+            @endforeach
             </tbody>
         </table>
     </div>
