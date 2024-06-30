@@ -15,6 +15,7 @@ class KapsmaterialController extends Controller
     {
         $data = DB::table('materials')->join('raks', 'materials.rak_id', '=', 'raks.id')
                     ->select('materials.*', 'raks.alamat as rak_alamat')
+                    ->orderBy('materials.id', 'desc')
                     ->get();
         // return response()->json($data);
         return view('material.index', compact('data'));
@@ -30,7 +31,20 @@ class KapsmaterialController extends Controller
 
     public function store(Request $request)
     {
-        // return response()->json($request->all());
+        return response()->json($request->all());
+        $validated = Validator::make($request->all(), [
+            'itemNumber' => 'required',
+            'partNumber' => 'required',
+            'productName' => 'required',
+            'rak_id' => 'required'
+        ]);
+
+        if($validated->fails()) {
+            toast('Data gagal disimpan.', 'error');
+            return redirect()->back()->withErrors($validated)->withInput();
+        }
+
+        $rak_id = $request->rak_id;
         $itemNumber = $request->input('itemNumber');
         $partNumber = $request->input('partNumber');
         $productName = $request->input('productName');
@@ -41,9 +55,21 @@ class KapsmaterialController extends Controller
         $vol = $request->input('volume');
         $qtyPack = $request->input('qtyPack');
         $qtyBox = $request->input('qtyBox');
-        $berat = $request->input('berat');
 
-        DB::insert("insert into DataMaterial(itemNumber, partNumber, productName, pjg, lbr, tng, jr, vol, qtyBox, qtyPack, berat) values('$itemNumber', '$partNumber', '$productName', '$pjg', '$lbr', '$tng', '$jr', '$vol', '$qtyBox', '$qtyPack', '$berat')");
+        $material = new Material();
+        $material->rak_id = $rak_id;
+        $material->item_number = $itemNumber;
+        $material->part_number = $partNumber;
+        $material->product_name = $productName;
+        $material->panjang = $pjg;
+        $material->lebar = $lbr;
+        $material->tinggi = $tng;
+        $material->jr = $jr;
+        $material->qty_box = $qtyBox;
+        $material->qty_pack = $qtyPack;
+        $material->save();
+
+        // DB::insert("insert into DataMaterial(itemNumber, partNumber, productName, pjg, lbr, tng, jr, vol, qtyBox, qtyPack, berat) values('$itemNumber', '$partNumber', '$productName', '$pjg', '$lbr', '$tng', '$jr', '$vol', '$qtyBox', '$qtyPack', '$berat')");
 
         // Redirect atau kembalikan respons sesuai kebutuhan
         return redirect()->route('kapsmaterial.index')->with('success', 'New material added successfully');

@@ -30,7 +30,7 @@ class RakSeeder extends Seeder
             }
         };
 
-        // Alamat Rak A
+        //rak a
         foreach (range(1, 3) as $row) {
             foreach (range(1, 42) as $col) {
                 $panjang = rand(300, 500);
@@ -61,7 +61,7 @@ class RakSeeder extends Seeder
             }
         }
 
-        // Alamat Rak B
+        //rak b
         foreach (range(1, 3) as $row) {
             foreach (range(1, 48) as $col) {
                 $panjang = rand(300, 500);
@@ -92,7 +92,7 @@ class RakSeeder extends Seeder
             }
         }
 
-        // Alamat Rak C
+        //rak c
         foreach (range(1, 3) as $row) {
             foreach (range(1, 37) as $col) {
                 $panjang = rand(300, 500);

@@ -15,10 +15,9 @@ class DashboardController extends Controller
                             ->leftJoin('materials as m', 'r.id', '=', 'm.rak_id')
                             ->selectRaw('SUM(r.volume) - COALESCE(SUM(m.total_volume), 0) as total_tersedia')
                             ->first()->total_tersedia;
-        // return response()->json([
-        //     'totalTerpakai' => $totalTerpakai,
-        //     'totalTersedia' => $totalTersedia
-        // ]);
+    
+        //pastikan total tersedia tidak kurang dari 0
+        $totalTersedia = max($totalTersedia, 0);
 
         return view('dashboard', compact('totalTerpakai', 'totalTersedia'));
     }

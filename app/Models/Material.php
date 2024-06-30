@@ -22,7 +22,6 @@ class Material extends Model
         'jr',
         'qty_box',
         'qty_pack',
-        'berat',
         'volume',
         'total_volume',
     ];

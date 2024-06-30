@@ -38,7 +38,7 @@
               <th>Product</th>
               <th>Detail</th>
               <th>Quantity</th> 
-              <th>Volume (cm3)/box</th>
+              <th>Volume (cm3)</th>
               <th>Tanggal</th>
               <th>Actions</th>
             </tr>

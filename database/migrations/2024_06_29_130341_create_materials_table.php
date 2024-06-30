@@ -22,8 +22,7 @@ return new class extends Migration
             $table->bigInteger('tinggi')->nullable();
             $table->bigInteger('jr')->nullable();
             $table->bigInteger('qty_box')->nullable();
-            $table->bigInteger('qty_pack')->nullable();
-            $table->bigInteger('berat')->nullable();    
+            $table->bigInteger('qty_pack')->nullable();    
             $table->bigInteger('volume')->nullable();
             $table->bigInteger('total_volume')->nullable();
             $table->timestamps();
