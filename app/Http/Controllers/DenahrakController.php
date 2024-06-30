@@ -11,4 +11,9 @@ class DenahrakController extends Controller
     {
         return view('denahrak');
     }
+
+    public function getData(Request $request)
+    {
+        $id = $request->id;
+    }
 }

@@ -82,13 +82,9 @@
                         <i class="fas fa-edit fa-xs"></i>
                       </a>
                       &nbsp;
-                      <form action="{{ url('/kapsmaterial/delete/'.$value->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm ondelete">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </form>
+                      <a class="btn btn-danger btn-sm ondelete" href="{{ url('/kapsmaterial/delete/'.$value->id) }}">
+                        <i class="fas fa-trash"></i>
+                      </a>
                     </div>
                   </td>
               </tr>

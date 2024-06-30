@@ -59,17 +59,13 @@
                         <td>{{ number_format($value->volume, 0, ",", ".") }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('kapsmaterial.edit', $value->alamat) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ route('kapsrak.edit', $value->id) }}" class="btn btn-warning btn-sm">
                                     <i class="fas fa-edit fa-xs"></i>
                                 </a>
                                 &nbsp;
-                                <form action="{{ route('kapsmaterial.destroy', $value->alamat) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm ondelete">
-                                        <i class="fas fa-trash-alt fa-xs"></i>
-                                    </button>
-                                </form>
+                                <a href="{{ url('/kapsrak/delete', $value->id) }}" class="btn btn-danger btn-sm ondelete">
+                                    <i class="fas fa-trash fa-xs"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>

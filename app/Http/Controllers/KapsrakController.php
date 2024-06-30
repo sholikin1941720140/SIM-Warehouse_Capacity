@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataRak;
+use App\Models\Rak;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
@@ -13,7 +13,7 @@ class KapsrakController extends Controller
     public function index()
     {
         $data = DB::table('raks')->get();
-        // dd($data);
+        // return response()->json($data);
         return view('rak.index', compact('data'));
     }
 
@@ -59,12 +59,19 @@ class KapsrakController extends Controller
         return view('kapsrak.edit', compact('rak'));
     }
 
-    public function destroy($alamat)
+    public function delete($id)
     {
-        // Temukan data berdasarkan alamat
-        $dataRak = DB::delete("delete datarak where alamat = '$alamat'");
-        return redirect()->route('kapsrak.index')->with('success', 'Data berhasil dihapus');
+        $data = Rak::find($id);
+        if (!$data) {
+            toast('Data tidak ditemukan.', 'error');
+            return redirect()->route('kapsrak.index');
+        }
+        $data->delete();
+
+        toast('Data berhasil dihapus.', 'success');
+        return redirect()->route('kapsrak.index');
     }
+
     // public function filterByKode($kode)
     // {
     //     $dataRak = DataRak::where('kode', $kode)->get();

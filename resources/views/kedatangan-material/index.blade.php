@@ -82,7 +82,9 @@
                                 <a href="{{ url('/kedatanganmaterial/show/'.$value->id) }}" class="btn btn-primary btn-sm">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a class="btn btn-danger btn-sm ondelete" href="{{ url('/kedatanganmaterial/delete/'.$value->id) }}">
+                                &nbsp;
+                                <a class="btn btn-danger btn-sm ondelete"
+                                    href="{{url('/kedatanganmaterial/delete/'.$value->id)}}">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>
