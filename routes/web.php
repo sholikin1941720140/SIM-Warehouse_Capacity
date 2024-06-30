@@ -26,17 +26,17 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('data-denahrak', [DenahrakController::class, 'getData'])->name('data-denahrak');
+    Route::get('/calendar-data', [IncomingController::class, 'getIncomingData']);
 
     //denah rak
     Route::resource('/denahrak', DenahrakController::class);
-    Route::post('data-denahrak', [DenahrakController::class, 'getData'])->name('data-denahrak');
 
     // Kedatangan material
     Route::get('/kedatanganmaterial', [IncomingController::class, 'index']);
     Route::get('/kedatanganmaterial/show/{id}', [IncomingController::class, 'show']);
     Route::get('/kedatanganmaterial/delete/{id}', [IncomingController::class, 'delete']);
     Route::post('/kedatanganmaterial/import_excel', [IncomingController::class, 'importExcel']);
-    Route::get('/calendar-data', [IncomingController::class, 'getIncomingData']);
 
     //rak
     Route::resource('/kapsrak', KapsrakController::class);

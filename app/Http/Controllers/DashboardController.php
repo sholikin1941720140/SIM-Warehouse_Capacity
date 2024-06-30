@@ -4,23 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Warehouse; // Menggunakan model yang benar
+use DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Mengambil total kapasitas dan kapasitas yang terpakai dari tabel kapasitas_warehouses
-        $totalCapacity = Warehouse::sum('total_capacity');
-        $usedCapacity = Warehouse::sum('use_capacity');
-        $freeCapacity = $totalCapacity - $usedCapacity;
+        $totalTerpakai = DB::table('materials')->sum('total_volume');
+        $totalTersedia = DB::table('raks as r')
+                            ->leftJoin('materials as m', 'r.id', '=', 'm.rak_id')
+                            ->selectRaw('SUM(r.volume) - COALESCE(SUM(m.total_volume), 0) as total_tersedia')
+                            ->first()->total_tersedia;
+        // return response()->json([
+        //     'totalTerpakai' => $totalTerpakai,
+        //     'totalTersedia' => $totalTersedia
+        // ]);
 
-        $data = [
-            'total' => $totalCapacity,
-            'used' => $usedCapacity,
-            'free' => $freeCapacity
-        ];
-
-        return view('dashboard')->with('data', $data);
+        return view('dashboard', compact('totalTerpakai', 'totalTersedia'));
     }
 }

@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Material;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
 use App\Http\Requests;
-use App\Support\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class KapsmaterialController extends Controller
 {
