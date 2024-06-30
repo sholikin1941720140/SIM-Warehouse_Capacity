@@ -14,7 +14,7 @@ class RakSeeder extends Seeder
     public function run(): void
     {
         $rakData = [];
-        $batchSize = 200; // Ukuran batch yang aman (kurang dari 210 baris)
+        $batchSize = 200; // Ukuran batch yang aman
 
         // Fungsi untuk insert batch data
         $insertBatch = function ($data) {
@@ -33,17 +33,12 @@ class RakSeeder extends Seeder
         // Alamat Rak A
         foreach (range(1, 3) as $row) {
             foreach (range(1, 42) as $col) {
-                if ($col > 22 && ($row == 1 || $row == 2)) {
-                    continue; // Skip non-existing columns for A.1 and A.2 rows
-                }
-
                 $panjang = rand(300, 500);
                 $lebar = rand(300, 500);
                 $tinggi = rand(300, 500);
                 $tinggi_atas = null;
                 $tinggi_total = null;
                 $volume = $panjang * $lebar * $tinggi;
-
 
                 if ($row == 3) {
                     $tinggi_atas = rand(400, 600);
