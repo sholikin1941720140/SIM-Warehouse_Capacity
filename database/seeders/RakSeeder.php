@@ -41,11 +41,14 @@ class RakSeeder extends Seeder
                 $lebar = rand(300, 500);
                 $tinggi = rand(300, 500);
                 $tinggi_atas = null;
-                $tinggi_total = $tinggi; // Default ke tinggi jika tidak ada tinggi_atas
+                $tinggi_total = null;
+                $volume = $panjang * $lebar * $tinggi;
+
 
                 if ($row == 3) {
                     $tinggi_atas = rand(400, 600);
-                    $tinggi_total = $tinggi + $tinggi_atas;
+                    $tinggi_total = rand(400, 600);
+                    $volume = $panjang * $lebar * ($tinggi + $tinggi_atas + $tinggi_total);
                 }
 
                 $addToBatch([
@@ -56,7 +59,7 @@ class RakSeeder extends Seeder
                     'tinggi' => $tinggi,
                     'tinggi_atas' => $tinggi_atas,
                     'tinggi_total' => $tinggi_total,
-                    'volume' => $panjang * $lebar * $tinggi_total,
+                    'volume' => $volume,
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);
@@ -70,11 +73,13 @@ class RakSeeder extends Seeder
                 $lebar = rand(300, 500);
                 $tinggi = rand(300, 500);
                 $tinggi_atas = null;
-                $tinggi_total = $tinggi; // Default ke tinggi jika tidak ada tinggi_atas
+                $tinggi_total = null;
+                $volume = $panjang * $lebar * $tinggi;
 
                 if ($row == 3) {
                     $tinggi_atas = rand(400, 600);
-                    $tinggi_total = $tinggi + $tinggi_atas;
+                    $tinggi_total = rand(400, 600);
+                    $volume = $panjang * $lebar * ($tinggi + $tinggi_atas + $tinggi_total);
                 }
 
                 $addToBatch([
@@ -85,7 +90,7 @@ class RakSeeder extends Seeder
                     'tinggi' => $tinggi,
                     'tinggi_atas' => $tinggi_atas,
                     'tinggi_total' => $tinggi_total,
-                    'volume' => $panjang * $lebar * $tinggi_total,
+                    'volume' => $volume,
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);
@@ -99,11 +104,13 @@ class RakSeeder extends Seeder
                 $lebar = rand(300, 500);
                 $tinggi = rand(300, 500);
                 $tinggi_atas = null;
-                $tinggi_total = $tinggi; // Default ke tinggi jika tidak ada tinggi_atas
+                $tinggi_total = null;
+                $volume = $panjang * $lebar * $tinggi;
 
                 if ($row == 3) {
                     $tinggi_atas = rand(400, 600);
-                    $tinggi_total = $tinggi + $tinggi_atas;
+                    $tinggi_total = rand(400, 600);
+                    $volume = $panjang * $lebar * ($tinggi + $tinggi_atas + $tinggi_total);
                 }
 
                 $addToBatch([
@@ -114,7 +121,7 @@ class RakSeeder extends Seeder
                     'tinggi' => $tinggi,
                     'tinggi_atas' => $tinggi_atas,
                     'tinggi_total' => $tinggi_total,
-                    'volume' => $panjang * $lebar * $tinggi_total,
+                    'volume' => $volume,
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);

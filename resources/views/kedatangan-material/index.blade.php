@@ -1,14 +1,17 @@
 @extends('template')
 
 @section('custom-css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.bootstrap4.min.css">
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script defer src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script defer src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <script defer src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
+    <script defer src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.bootstrap4.min.js"></script>
 @endsection
 
 @section('content')
@@ -18,18 +21,17 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <button type="button" class="btn btn-success mr-3" data-toggle="modal" data-target="#importExcel">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+                <button type="button" class="btn btn-success mb-2 mb-md-0 mr-md-3" data-toggle="modal" data-target="#importExcel">
                     IMPORT EXCEL
                 </button>
-    
-                <div>
+                <div class="text-center text-md-left">
                     <p class="mb-1"><strong>Total Kapasitas:</strong> {{ number_format($kapasitas->total_kapasitas, 0, ",", ".") }}</p>
                     <p class="mb-1"><strong>Total Terpakai:</strong> {{ number_format($kapasitas->total_terpakai, 0, ",", ".") }}</p>
                     <p class="mb-1"><strong>Sisa Kapasitas:</strong> {{ number_format($kapasitas->sisa_kapasitas, 0, ",", ".") }}</p>
                 </div>
             </div>
-    
+
             <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <form method="post" action="/kedatanganmaterial/import_excel" enctype="multipart/form-data">
@@ -42,12 +44,10 @@
                             </div>
                             <div class="modal-body">
                                 {{ csrf_field() }}
-    
                                 <div class="form-group">
                                     <label for="file">Pilih file excel</label>
                                     <input type="file" class="form-control-file" id="file" name="file" required="required">
                                 </div>
-    
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -57,7 +57,8 @@
                     </form>
                 </div>
             </div>
-            <table id="example2" class="table table-bordered table-hover">
+
+            <table id="example2" class="table table-bordered table-hover dt-responsive nowrap" style="width:100%">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -73,19 +74,17 @@
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $value->file }}</td>
-                        <td>{{number_format($value->luasan_kedatangan, 0, ",", ".")}}</td>
+                        <td>{{ number_format($value->luasan_kedatangan, 0, ",", ".") }}</td>
                         <td>{{ $value->pic }}</td>
                         <td>{{ \Carbon\Carbon::make($value->tanggal)->isoFormat('DD MMMM YYYY') }}</td>
                         <td>
-                            <div class="btn-group float-center mr-2">
-                                <a href="{{url('/kedatanganmaterial/show/'.$value->id)}}" class="btn btn-primary btn-sm">
-                                    <i class="fas fa-eye fa-xs"></i>
+                            <div class="btn-group">
+                                <a href="{{ url('/kedatanganmaterial/show/'.$value->id) }}" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-eye"></i>
                                 </a>
-                                &nbsp;
-                                <a class="btn btn-danger btn-sm ondelete"
-                                    href="{{url('/kedatanganmaterial/delete/'.$value->id)}}">
+                                <a class="btn btn-danger btn-sm ondelete" href="{{ url('/kedatanganmaterial/delete/'.$value->id) }}">
                                     <i class="fas fa-trash"></i>
-                                </a>                               
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -100,7 +99,9 @@
 @section('custom-js')
     <script>
         $(document).ready(function() {
-            $('#example2').DataTable();
+            $('#example2').DataTable({
+                responsive: true
+            });
         });
     </script>
 @endsection

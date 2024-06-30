@@ -24,7 +24,7 @@ return new class extends Migration
             $table->bigInteger('qty_kedatangan');
             $table->bigInteger('qty_actual');
             $table->string('user_by');
-            $table->bigInteger('volume');
+            $table->decimal('volume', 12, 4);
             $table->bigInteger('luasan');
             $table->timestamps();
 

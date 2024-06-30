@@ -1,14 +1,17 @@
 @extends('template')
 
 @section('custom-css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.7/css/responsive.bootstrap4.min.css">
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script defer src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script defer src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <script defer src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
+    <script defer src="https://cdn.datatables.net/responsive/2.2.7/js/responsive.bootstrap4.min.js"></script>
 @endsection
 
 @section('content')
@@ -28,7 +31,7 @@
       </div>
       <hr>
       <div class="col-sm-12">
-        <table class="table table-bordered border-primary" id="example2">
+        <table class="table table-bordered border-primary dt-responsive nowrap" id="example2" style="width:100%">
           <thead>
             <tr>
               <th>No.</th>
@@ -74,14 +77,18 @@
                   </td>
                   <td>{{ \Carbon\Carbon::make($value->updated_at)->isoFormat('DD MMMM YYYY') }}</td>
                   <td>
-                    <div class="btn-group float-center mr-2">
+                    <div class="btn-group">
                       <a href="{{ route('kapsmaterial.edit', $value->id) }}" class="btn btn-warning btn-sm">
                         <i class="fas fa-edit fa-xs"></i>
                       </a>
                       &nbsp;
-                      <a class="btn btn-danger btn-sm ondelete" href="{{ url('/kapsmaterial/delete/'.$value->id) }}">
-                        <i class="fas fa-trash"></i>
-                      </a>
+                      <form action="{{ url('/kapsmaterial/delete/'.$value->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm ondelete">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </form>
                     </div>
                   </td>
               </tr>
@@ -97,7 +104,9 @@
 @section('custom-js')
     <script>
         $(document).ready(function() {
-            $('#example2').DataTable();
+            $('#example2').DataTable({
+                responsive: true
+            });
         });
     </script>
 @endsection
