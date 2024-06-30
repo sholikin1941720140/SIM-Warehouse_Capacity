@@ -31,7 +31,7 @@ class KapsmaterialController extends Controller
 
     public function store(Request $request)
     {
-        return response()->json($request->all());
+        // return response()->json($request->all());
         $validated = Validator::make($request->all(), [
             'itemNumber' => 'required',
             'partNumber' => 'required',
@@ -45,16 +45,17 @@ class KapsmaterialController extends Controller
         }
 
         $rak_id = $request->rak_id;
-        $itemNumber = $request->input('itemNumber');
-        $partNumber = $request->input('partNumber');
-        $productName = $request->input('productName');
-        $pjg = $request->input('pjg');
-        $lbr = $request->input('lbr');
-        $jr = $request->input('jr');
-        $tng = $request->input('pjg');
-        $vol = $request->input('volume');
-        $qtyPack = $request->input('qtyPack');
-        $qtyBox = $request->input('qtyBox');
+        $itemNumber = $request->itemNumber;
+        $partNumber = $request->partNumber;
+        $productName = $request->productName;
+        $pjg = $request->pjg;
+        $lbr = $request->lbr;
+        $jr = $request->jr;
+        $tng = $request->tng;
+        $vol = intval(str_replace('.', '', $request->vol));
+        $qtyPack = $request->qtyPack;
+        $qtyBox = $request->qtyBox;
+        $total_volume = $vol * $qtyBox;
 
         $material = new Material();
         $material->rak_id = $rak_id;
@@ -65,15 +66,14 @@ class KapsmaterialController extends Controller
         $material->lebar = $lbr;
         $material->tinggi = $tng;
         $material->jr = $jr;
+        $material->volume = $vol;
         $material->qty_box = $qtyBox;
         $material->qty_pack = $qtyPack;
+        $material->total_volume = $total_volume;
         $material->save();
 
-        // DB::insert("insert into DataMaterial(itemNumber, partNumber, productName, pjg, lbr, tng, jr, vol, qtyBox, qtyPack, berat) values('$itemNumber', '$partNumber', '$productName', '$pjg', '$lbr', '$tng', '$jr', '$vol', '$qtyBox', '$qtyPack', '$berat')");
-
-        // Redirect atau kembalikan respons sesuai kebutuhan
-        return redirect()->route('kapsmaterial.index')->with('success', 'New material added successfully');
-        
+        toast('Data berhasil disimpan.', 'success');
+        return redirect()->route('kapsmaterial.index');
     }
 
     public function edit($id)
@@ -119,5 +119,4 @@ class KapsmaterialController extends Controller
         toast('Data berhasil dihapus.', 'success');
         return redirect()->route('kapsmaterial.index');
     }
-
 }

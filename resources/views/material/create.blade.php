@@ -99,7 +99,7 @@
         // Jika panjang, lebar, dan tinggi diisi, itu adalah balok
         if (panjang && lebar && tinggi) {
             var volume = panjang * lebar * tinggi;
-            document.getElementById('volume').value = volume.toFixed(2);
+            document.getElementById('volume').value = volume.toLocaleString('id-ID', { maximumFractionDigits: 2 });
             return;
         }
 
@@ -110,7 +110,7 @@
         if (diameter && tinggi) {
             var jariJari = diameter / 2;
             var volume = Math.PI * Math.pow(jariJari, 2) * tinggi;
-            document.getElementById('volume').value = volume.toFixed(2);
+            document.getElementById('volume').value = volume.toLocaleString('id-ID', { maximumFractionDigits: 2 });
         }
     }
 </script>

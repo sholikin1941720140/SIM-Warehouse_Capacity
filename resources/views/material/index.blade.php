@@ -71,7 +71,7 @@
                     <b>Box : </b>{{ number_format($value->qty_box, 0, ",", ".") }}
                   </td>
                   <td>
-                    <b>Total perbox : </b>{{ number_format($value->volume, 0, ",", ".") }}
+                    <b>Total Perbox : </b>{{ number_format($value->volume, 0, ",", ".") }}
                     <br>
                     <b>Total Volume : </b>{{ number_format($value->total_volume, 0, ",", ".") }}
                   </td>
