@@ -34,26 +34,26 @@
                 <div class="room" id="room8">Accessoris</div>
                 <div class="room" id="room9"> Loket 2</div>
                 <div class="room" id="room10"> Area Kanban</div>
-                <a href="/denahrak">
-                    <div class="room" id="room11"> RAK A (WIRE)</div>
+                <a href="javascript:void(0);" onclick="getData(11)">
+                    <div class="room" id="room11">RAK A (WIRE)</div>
                 </a>
-                <div class="room" id="room12"> RAK KANBAN</div>
-                <a href="/denahrak">
-                    <div class="room" id="room13"> RAK A (WIRE)</div>
+                <div class="room" id="room12">RAK KANBAN</div>
+                <a href="javascript:void(0);" onclick="getData(13)">
+                    <div class="room" id="room13">RAK A (WIRE)</div>
                 </a>
-                <a href="/denahrak">
-                    <div class="room" id="room14"> RAK B (WIRE)</div>
+                <a href="javascript:void(0);" onclick="getData(14)">
+                    <div class="room" id="room14">RAK B (WIRE)</div>
                 </a>
-                <a href="/denahrak">
-                    <div class="room" id="room15"> RAK B (ACCESSORIS)</div>
+                <a href="javascript:void(0);" onclick="getData(15)">
+                    <div class="room" id="room15">RAK B (ACCESSORIS)</div>
                 </a>
-                <a href="/denahrak">
-                    <div class="room" id="room16"> RAK C (WIRE)</div>
+                <a href="javascript:void(0);" onclick="getData(16)">
+                    <div class="room" id="room16">RAK C (WIRE)</div>
                 </a>
-                <div class="room" id="room17"> RAK AH-Switch</div>
-                <div class="room" id="room18"> KASIR</div>
-                <a href="/denahrak">
-                    <div class="room" id="room19"> RAK C (ASSY)</div>
+                <div class="room" id="room17">RAK AH-Switch</div>
+                <div class="room" id="room18">KASIR</div>
+                <a href="javascript:void(0);" onclick="getData(19)">
+                    <div class="room" id="room19">RAK C (ASSY)</div>
                 </a>
                 <div class="room" id="room20"> RAK D (TERMINAL)</div>
                 <div class="room" id="room21"> RAK D ( PART SUB ASSY)</div>
@@ -113,7 +113,39 @@
 
 
 @section('custom-js')
+    {{-- <script>
+        function getData(rak) {
+            $.ajax({
+                url: '/api/denahrak/' + rak,
+                type: 'GET',
+                success: function(response) {
+                    $('#rak-info').text(response.rak);
+                    $('#total-volume').text(response.total_volume);
+                    $('#total-terpakai').text(response.total_terpakai);
+                    $('#total-sisa').text(response.total_sisa);
+                }
+            });
+        }
+    </script> --}}
+
     <script>
-        
+        function getData(roomId) {
+            console.log(roomId);
+            // fetch('/data-denahrak', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            //     },
+            //     body: JSON.stringify({ id: roomId })
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     // Tangani data yang diterima
+            //     console.log(data);
+            //     // Tampilkan data atau lakukan aksi lain
+            // })
+            // .catch(error => console.error('Error:', error));
+        }
     </script>
 @endsection

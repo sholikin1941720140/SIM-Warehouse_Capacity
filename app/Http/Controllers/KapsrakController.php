@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Rak;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
 use App\Http\Requests;
+use Validator;
+use DB;
 
 class KapsrakController extends Controller
 {
@@ -24,7 +25,23 @@ class KapsrakController extends Controller
 
     public function store(Request $request)
     {
-        return response()->json($request->all());
+        // return response()->json($request->all());
+        $validated = Validator::make($request->all(), [
+            'kode' => 'required',
+            'alamat' => 'required',
+            'panjang' => 'required',
+            'lebar' => 'required',
+            'tinggi' => 'required',
+            // 'tinggiAts' => 'required',
+            'tinggiTtl' => 'required',
+            'volume' => 'required',
+        ]);
+
+        if ($validated->fails()) {
+            toast('Data gagal ditambahkan.', 'error');
+            return redirect()->back()->withErrors($validated)->withInput();
+        }
+
         $kode = $request->input('kode');
         $alamat = $request->input('alamat');
         $panjang = $request->input('panjang');
@@ -32,7 +49,7 @@ class KapsrakController extends Controller
         $tinggi = $request->input('tinggi');
         $tinggiAts = $request->input('tinggiAts');
         $tinggiTtl = $request->input('tinggiTtl');
-        $volume = $request->input('volume');
+        $volume = intval(str_replace('.', '', $request->volume));
 
         DB::table('raks')->insert([
             'kode' => $kode,
@@ -40,11 +57,13 @@ class KapsrakController extends Controller
             'panjang' => $panjang,
             'lebar' => $lebar,
             'tinggi' => $tinggi,
-            'tinggiAts' => $tinggiAts,
-            'tinggiTtl' => $tinggiTtl,
+            'tinggi_atas' => $tinggiAts,
+            'tinggi_total' => $tinggiTtl,
             'volume' => $volume,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
-        // Redirect atau kembalikan respons sesuai kebutuhan
+
         toast('Data berhasil ditambahkan','success');
         return redirect()->route('kapsrak.index'); 
         
@@ -52,11 +71,44 @@ class KapsrakController extends Controller
 
     public function edit($id)
     {
-        // Mendapatkan data berdasarkan ID
-        $rak = Rak::find($id);
+        $data = Rak::find($id);
 
-        // Menampilkan halaman edit dengan membawa data rak
-        return view('kapsrak.edit', compact('rak'));
+        return view('rak.edit', compact('data'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $volume = intval(str_replace('.', '', $request->volume));
+
+        $validated = Validator::make($request->all(), [
+            'kode' => 'required',
+            'alamat' => 'required',
+            'panjang' => 'required',
+            'lebar' => 'required',
+            'tinggi' => 'required',
+            // 'tinggiAts' => 'required',
+            'tinggiTtl' => 'required',
+            'volume' => 'required',
+        ]);
+
+        if ($validated->fails()) {
+            toast('Data gagal diubah.', 'error');
+            return redirect()->back()->withErrors($validated)->withInput();
+        }
+
+        $rak = Rak::find($id);
+        $rak->kode = $request->kode;
+        $rak->alamat = $request->alamat;
+        $rak->panjang = $request->panjang;
+        $rak->lebar = $request->lebar;
+        $rak->tinggi = $request->tinggi;
+        $rak->tinggi_atas = $request->tinggiAts;
+        $rak->tinggi_total = $request->tinggiTtl;
+        $rak->volume = $volume;
+        $rak->save();
+
+        toast('Data berhasil diubah.', 'success');
+        return redirect()->route('kapsrak.index');
     }
 
     public function delete($id)

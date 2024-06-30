@@ -55,7 +55,7 @@
                         <td>{{ $value->lebar }}</td>
                         <td>{{ $value->tinggi }}</td>
                         <td>{{ $value->tinggi_atas }}</td>
-                        <td>{{ $value->tinggi_total }}</td>                    
+                        <td>{{ number_format($value->tinggi_total, 0, ",", ".") }}  </td>                
                         <td>{{ number_format($value->volume, 0, ",", ".") }}</td>
                         <td>
                             <div class="btn-group">

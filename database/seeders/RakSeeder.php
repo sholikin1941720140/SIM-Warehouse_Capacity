@@ -36,14 +36,14 @@ class RakSeeder extends Seeder
                 $panjang = rand(300, 500);
                 $lebar = rand(300, 500);
                 $tinggi = rand(300, 500);
-                $tinggi_atas = null;
-                $tinggi_total = null;
-                $volume = $panjang * $lebar * $tinggi;
+                $tinggi_atas = 0;
+                $tinggi_total = $tinggi;
+                $volume = $panjang * $lebar * $tinggi_total;
 
                 if ($row == 3) {
                     $tinggi_atas = rand(400, 600);
-                    $tinggi_total = rand(400, 600);
-                    $volume = $panjang * $lebar * ($tinggi + $tinggi_atas + $tinggi_total);
+                    $tinggi_total = $tinggi + $tinggi_atas;
+                    $volume = $panjang * $lebar * $tinggi_total;
                 }
 
                 $addToBatch([
@@ -67,14 +67,14 @@ class RakSeeder extends Seeder
                 $panjang = rand(300, 500);
                 $lebar = rand(300, 500);
                 $tinggi = rand(300, 500);
-                $tinggi_atas = null;
-                $tinggi_total = null;
-                $volume = $panjang * $lebar * $tinggi;
+                $tinggi_atas = 0;
+                $tinggi_total = $tinggi;
+                $volume = $panjang * $lebar * $tinggi_total;
 
                 if ($row == 3) {
                     $tinggi_atas = rand(400, 600);
-                    $tinggi_total = rand(400, 600);
-                    $volume = $panjang * $lebar * ($tinggi + $tinggi_atas + $tinggi_total);
+                    $tinggi_total = $tinggi + $tinggi_atas;
+                    $volume = $panjang * $lebar * $tinggi_total;
                 }
 
                 $addToBatch([
@@ -98,14 +98,14 @@ class RakSeeder extends Seeder
                 $panjang = rand(300, 500);
                 $lebar = rand(300, 500);
                 $tinggi = rand(300, 500);
-                $tinggi_atas = null;
-                $tinggi_total = null;
-                $volume = $panjang * $lebar * $tinggi;
+                $tinggi_atas = 0;
+                $tinggi_total = $tinggi;
+                $volume = $panjang * $lebar * $tinggi_total;
 
                 if ($row == 3) {
                     $tinggi_atas = rand(400, 600);
-                    $tinggi_total = rand(400, 600);
-                    $volume = $panjang * $lebar * ($tinggi + $tinggi_atas + $tinggi_total);
+                    $tinggi_total = $tinggi + $tinggi_atas;
+                    $volume = $panjang * $lebar * $tinggi_total;
                 }
 
                 $addToBatch([
