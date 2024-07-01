@@ -11,13 +11,15 @@ class DashboardController extends Controller
     public function index()
     {
         $totalTerpakai = DB::table('materials')->sum('total_volume');
-        $totalTersedia = DB::table('raks as r')
-                            ->leftJoin('materials as m', 'r.id', '=', 'm.rak_id')
-                            ->selectRaw('SUM(r.volume) - COALESCE(SUM(m.total_volume), 0) as total_tersedia')
-                            ->first()->total_tersedia;
-    
-        //pastikan total tersedia tidak kurang dari 0
-        $totalTersedia = max($totalTersedia, 0);
+        $totalVolRak = DB::table('raks')->sum('volume');
+        $totalTersedia = $totalVolRak - $totalTerpakai;
+        $totalTersedia = max($totalTersedia, 0); //jika totalTersedia < 0, maka totalTersedia = 0
+
+        // return response()->json([
+        //     'totalTerpakai' => $totalTerpakai, 
+        //     'totalVolRak' => $totalVolRak,
+        //     'totalTersedia' => $totalTersedia,
+        // ]);
 
         return view('dashboard', compact('totalTerpakai', 'totalTersedia'));
     }
