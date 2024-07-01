@@ -21,9 +21,9 @@ class MaterialSeeder extends Seeder
             $material->item_number = 'RMI.WH.' . str_pad(rand(0, 99), 2, '0', STR_PAD_LEFT) . '.' . str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);
             $material->part_number = 'MT-' . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
             $material->product_name = 'TERM.' . str_pad(rand(0, 99999), 5, '0', STR_PAD_LEFT);
-            $material->panjang = rand(10, 99);
-            $material->lebar = rand(10, 99);
-            $material->tinggi = rand(10, 99);
+            $material->panjang = rand(1000, 9999);
+            $material->lebar = rand(1000, 9999);
+            $material->tinggi = rand(1000, 9999);
             // $material->jr = rand(0, 99);
             $material->jr = null;
             $material->qty_box = rand(100, 999);
