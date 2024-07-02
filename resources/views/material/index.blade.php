@@ -31,7 +31,7 @@
       </div>
       <hr>
       <div class="col-sm-12">
-        <table class="table table-bordered border-primary dt-responsive nowrap" id="example2" style="width:100%">
+        <table id="example2" class="table table-bordered table-hover dt-responsive nowrap" style="width:100%">
           <thead>
             <tr>
               <th>No.</th>
@@ -40,7 +40,7 @@
               <th>Quantity</th> 
               <th>Volume (cm3)</th>
               <th>Tanggal</th>
-              <th>Actions</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
